@@ -8,9 +8,8 @@ const User = require('../models/userModel')
 // @route   POST /api/users
 // @access  Public
 const registerUser = asyncHandler(async (req, res) => {
-    const {name, username, email, password, level, role,cyberLevel,  taskCompleted, streak} = req?.body
-
-    if (!name || !username || !email || !password || !level || !role) {
+    const {name, username, email, password} = req?.body
+    if (!name || !username || !email || !password) {
         res.status(400)
         throw new Error('Please add all fields')
     }
@@ -37,11 +36,6 @@ const registerUser = asyncHandler(async (req, res) => {
         username,
         email,
         password: hashedPassword,
-        level,
-        role,
-        cyberLevel,
-        taskCompleted,
-        streak
     })
 
     if (user) {
@@ -50,12 +44,6 @@ const registerUser = asyncHandler(async (req, res) => {
             name: user?.name,
             username: user?.username,
             email: user?.email,
-            level: user?.level,
-            role: user?.role,
-            cyberLevel: user?.cyberLevel,
-            taskCompleted: user?.taskCompleted,
-            streak: user?.streak,
-
             token: generateToken(user?._id)
         })
     } else {
@@ -78,12 +66,6 @@ const loginUser = asyncHandler(async (req, res) => {
             name: user?.name,
             username: user?.username,
             email: user?.email,
-            level: user?.level,
-            role: user?.role,
-            cyberLevel: user?.cyberLevel,
-            taskCompleted: user?.taskCompleted,
-            streak: user?.streak,
-
             token: generateToken(user?._id)
         })
     } else {
@@ -96,21 +78,23 @@ const loginUser = asyncHandler(async (req, res) => {
 // @route   GET /api/users/user
 // @access  Private
 const getUser = asyncHandler(async (req, res) => {
-    const {_id, name, username, email, password, level, role, cyberLevel, taskCompleted, streak} = await User.findById(req?.user?.id)
+    res?.status(200).json(req?.user)
 
-    res?.status(200).json({
-        id: _id,
-        name,
-        username,
-        email,
-        level,
-        role,
-        cyberLevel,
-        taskCompleted,
-        streak
-    })
-    res?.json({message: 'Get user data'})
-
+    // const {_id, name, username, email, password,
+    //     // level, role, cyberLevel, taskCompleted, streak
+    // } = await User.findById(req?.user?.id)
+    //
+    // res?.status(200).json({
+    //     id: _id,
+    //     name,
+    //     username,
+    //     email,
+    //     // level,
+    //     // role,
+    //     // cyberLevel,
+    //     // taskCompleted,
+    //     // streak
+    // })
 })
 
 

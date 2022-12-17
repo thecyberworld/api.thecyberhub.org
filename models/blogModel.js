@@ -26,7 +26,11 @@ const blogSchema = mongoose.Schema({
     tags: {
         type: String,
         required: [true, 'Please add tags']
-    }
+    },
+    // views: {type: Number},
+    // likes: {type: Number},
+    // comments: {type: String},
+    // shares: {type: Number},
 }, {
     timestamps: true
 })

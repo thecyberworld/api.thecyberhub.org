@@ -19,25 +19,6 @@ const userSchema = mongoose.Schema({
             type: String,
             required: [true, 'Please add a password']
         },
-        level: {
-            type: String,
-            required: [true, 'Please select your level']
-        },
-        role: {
-            type: String,
-            required: [true, 'Please choose a role']
-        },
-        cyberLevel: {
-            type: String,
-        },
-        taskCompleted: {
-            type: Number,
-            value: 0
-        },
-        streak: {
-            type: Number,
-            value: 0
-        },
     },
     {
         timestamps: true
