@@ -7,6 +7,13 @@ jobs:
       - run: node --version
       - run: npm --version
       - uses: actions/checkout@v3
+        env:
+          NODE_ENV: ${{ secrets.NODE_ENV }}
+          PORT: ${{ secrets.PORT }}
+          MONGO_URI: ${{ secrets.MONGO_URI }}
+          JWT_SECRET: ${{ secrets.JWT_SECRET }}
+      - run: echo ${NODE_ENV}
+      - run: echo `NODE_ENV`
+      - run: echo NODE_ENV
       - run: npm install
       - run: node server.js
-        
