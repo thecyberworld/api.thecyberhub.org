@@ -12,8 +12,6 @@ jobs:
           PORT: ${{ secrets.PORT }}
           MONGO_URI: ${{ secrets.MONGO_URI }}
           JWT_SECRET: ${{ secrets.JWT_SECRET }}
-      - run: echo ${NODE_ENV}
-      - run: echo `NODE_ENV`
-      - run: echo NODE_ENV
+      - run: echo $NODE_ENV
       - run: npm install
       - run: node server.js
