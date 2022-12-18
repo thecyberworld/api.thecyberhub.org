@@ -9,3 +9,4 @@ jobs:
       - uses: actions/checkout@v3
       - run: npm install
       - run: node server.js
+        
