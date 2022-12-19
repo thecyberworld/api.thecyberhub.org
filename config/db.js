@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 
 const connectDB = async () => {
     try {
-        const conn = await mongoose.connect("mongodb+srv://doadmin:C150p2k3h8v4LlK7@thecyberhub-db-65797903.mongo.ondigitalocean.com/thecyberhub?tls=true&authSource=admin&replicaSet=thecyberhub-db")
+        const conn = await mongoose.connect(process.env.MONGO_URI)
         console.log(`MongoDB Connected: ${conn.connection.host}`.yellow.underline.bold)
     }
     catch (error) {
