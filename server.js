@@ -20,7 +20,7 @@ app.use('/api/goals', require('./routes/goalRoutes'))
 
 // Serve Frontend
 if(process.env.NODE_ENV === 'production') {
-    app.get('*',(req,res) => res.send('API Server.' + 'Checkout https://thecyberhub.org'))
+    app.get('*',(req,res) => res.send('API Server. ' + 'Checkout https://thecyberhub.org'))
 // app.use(express.static(path.join(__dirname,'../web/dist')))
     // app.get('*', (req,res)=> {
     //     res.sendFile(path.resolve(__dirname,'..','web','dist','index.html'))
