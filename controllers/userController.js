@@ -8,7 +8,7 @@ const User = require('../models/userModel')
 // @route   POST /api/users
 // @access  Public
 const registerUser = asyncHandler(async (req, res) => {
-    const {name, username, email, password,picture} = req?.body
+    const {name, username, email, password, picture, userType} = req?.body
     if (!name || !username || !email || !password) {
         res.status(400)
         throw new Error('Please add all fields')
@@ -23,7 +23,7 @@ const registerUser = asyncHandler(async (req, res) => {
     }
     if (emailExists) {
         res?.status(400)
-        throw new Error('Email is already in use Exists')
+        throw new Error('Email is already Exists')
     }
 
     // Hash password
@@ -37,6 +37,7 @@ const registerUser = asyncHandler(async (req, res) => {
         email,
         password: hashedPassword,
         picture,
+        userType,
     })
 
     if (user) {
@@ -45,7 +46,8 @@ const registerUser = asyncHandler(async (req, res) => {
             name: user?.name,
             username: user?.username,
             email: user?.email,
-            picture: "",
+            picture: "https://user-images.githubusercontent.com/44284877/208585563-75b6ef57-3bae-43b9-a93e-024bad29a267.png",
+            userType: "user",
             token: generateToken(user?._id)
         })
     } else {
@@ -62,13 +64,15 @@ const loginUser = asyncHandler(async (req, res) => {
 
     // Check for username
     const user = await User.findOne({username})
-    if (user && (await bcrypt.compare(password, user?.password))) {
+    if (user && (await bcrypt.compare(password, user.password))) {
         res?.json({
-            _id: user?.id,
-            name: user?.name,
-            username: user?.username,
-            email: user?.email,
-            token: generateToken(user?._id)
+            _id: user.id,
+            name: user.name,
+            username: user.username,
+            email: user.email,
+            picture: user.picture,
+            userType: user.userType,
+            token: generateToken(user._id)
         })
     } else {
         res?.status(400)

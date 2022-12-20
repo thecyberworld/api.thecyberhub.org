@@ -19,8 +19,8 @@ app.use('/api/userDetails', require('./routes/userDetailRoutes'))
 app.use('/api/goals', require('./routes/goalRoutes'))
 
 // Serve Frontend
-if(process.env.NODE_ENV === 'production') {
-    app.get('*',(req,res) => res.send('API Server. ' + 'Checkout https://thecyberhub.org'))
+if (process.env.NODE_ENV === 'production') {
+    app.get('*', (req, res) => res.send('API Server. ' + 'Please visit https://thecyberhub.org'))
 // app.use(express.static(path.join(__dirname,'../web/dist')))
     // app.get('*', (req,res)=> {
     //     res.sendFile(path.resolve(__dirname,'..','web','dist','index.html'))
@@ -31,7 +31,7 @@ if(process.env.NODE_ENV === 'production') {
     //     res.sendFile(path.resolve(__dirname,'dist','index.html'))
     // })
 } else {
-    app.get('/',(req,res) => res.send('Please set to production'))
+    app.get('/', (req, res) => res.send('Please set to production'))
 }
 
 app.use(errorHandler)
