@@ -12,9 +12,9 @@ const userSchema = mongoose.Schema({
     }, password: {
         type: String, required: [true, 'Please add a password']
     }, picture: {
-        type: String,
+        type: String, value: 'https://user-images.githubusercontent.com/44284877/208585563-75b6ef57-3bae-43b9-a93e-024bad29a267.png'
     }, userType: {
-        type: String,
+        type: String, value: 'user'
     },
 }, {
     timestamps: true

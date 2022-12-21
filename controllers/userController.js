@@ -10,7 +10,7 @@ const User = require('../models/userModel')
 const registerUser = asyncHandler(async (req, res) => {
     const {name, username, email, password, picture, userType} = req?.body
     if (!name || !username || !email || !password) {
-        res.status(400)
+        res?.status(400)
         throw new Error('Please add all fields')
     }
     // Check if user exists
@@ -36,8 +36,8 @@ const registerUser = asyncHandler(async (req, res) => {
         username,
         email,
         password: hashedPassword,
-        picture,
-        userType,
+        picture: "https://user-images.githubusercontent.com/44284877/208585563-75b6ef57-3bae-43b9-a93e-024bad29a267.png",
+        userType: "user",
     })
 
     if (user) {
@@ -46,8 +46,8 @@ const registerUser = asyncHandler(async (req, res) => {
             name: user?.name,
             username: user?.username,
             email: user?.email,
-            picture: "https://user-images.githubusercontent.com/44284877/208585563-75b6ef57-3bae-43b9-a93e-024bad29a267.png",
-            userType: "user",
+            picture: user?.picture,
+            userType: user?.userType,
             token: generateToken(user?._id)
         })
     } else {
@@ -64,15 +64,15 @@ const loginUser = asyncHandler(async (req, res) => {
 
     // Check for username
     const user = await User.findOne({username})
-    if (user && (await bcrypt.compare(password, user.password))) {
+    if (user && (await bcrypt.compare(password, user?.password))) {
         res?.json({
-            _id: user.id,
-            name: user.name,
-            username: user.username,
-            email: user.email,
-            picture: user.picture,
-            userType: user.userType,
-            token: generateToken(user._id)
+            _id: user?.id,
+            name: user?.name,
+            username: user?.username,
+            email: user?.email,
+            picture: user?.picture,
+            userType: user?.userType,
+            token: generateToken(user?._id)
         })
     } else {
         res?.status(400)
