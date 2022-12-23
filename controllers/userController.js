@@ -8,9 +8,9 @@ const User = require('../models/userModel')
 // @route   POST /api/users
 // @access  Public
 const registerUser = asyncHandler(async (req, res) => {
-    const {name, username, email, password,picture} = req?.body
+    const {name, username, email, password, picture, userType} = req?.body
     if (!name || !username || !email || !password) {
-        res.status(400)
+        res?.status(400)
         throw new Error('Please add all fields')
     }
     // Check if user exists
@@ -23,7 +23,7 @@ const registerUser = asyncHandler(async (req, res) => {
     }
     if (emailExists) {
         res?.status(400)
-        throw new Error('Email is already in use Exists')
+        throw new Error('Email is already Exists')
     }
 
     // Hash password
@@ -36,7 +36,8 @@ const registerUser = asyncHandler(async (req, res) => {
         username,
         email,
         password: hashedPassword,
-        picture,
+        picture: "https://user-images.githubusercontent.com/44284877/208585563-75b6ef57-3bae-43b9-a93e-024bad29a267.png",
+        userType: "user",
     })
 
     if (user) {
@@ -45,7 +46,8 @@ const registerUser = asyncHandler(async (req, res) => {
             name: user?.name,
             username: user?.username,
             email: user?.email,
-            picture: "",
+            picture: user?.picture,
+            userType: user?.userType,
             token: generateToken(user?._id)
         })
     } else {
@@ -68,6 +70,8 @@ const loginUser = asyncHandler(async (req, res) => {
             name: user?.name,
             username: user?.username,
             email: user?.email,
+            picture: user?.picture,
+            userType: user?.userType,
             token: generateToken(user?._id)
         })
     } else {
