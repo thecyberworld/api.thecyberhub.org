@@ -26,7 +26,7 @@ const userDetailSchema = mongoose.Schema({
         type: String,
     },
     taskCompleted: {
-        type: Number,
+        type: Array,
     },
     // daily visits or daily complete dask will increase the streak by 1
     streak: {

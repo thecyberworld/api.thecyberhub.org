@@ -3068,7 +3068,7 @@ If your application works on the development machine, in the same way it will wo
         text-decoration: none;
         color: #cecac3;
     }
-`,tN=()=>C(Uc,{children:[c("h1",{children:" Blogs "}),c(eN,{children:Nb.map((e,t)=>c(ft,{className:"styles",to:{pathname:`${Yr(e.title)}`},children:c(ZI,{title:e.title,author:e.author,date:e.date,content:e.content,tags:e.tags},e.id)},t))})]}),nN=x.div`
+`,tN=()=>C(Uc,{children:[c("h1",{children:" blogs "}),c(eN,{children:Nb.map((e,t)=>c(ft,{className:"styles",to:{pathname:`${Yr(e.title)}`},children:c(ZI,{title:e.title,author:e.author,date:e.date,content:e.content,tags:e.tags},e.id)},t))})]}),nN=x.div`
     width: 80%;
     margin: 100px auto;
     display: flex;

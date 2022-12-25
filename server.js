@@ -10,12 +10,50 @@ connectDB()
 
 const app = express()
 
+
+// Mongo
+
+const mongoose = require('mongoose');
+
+const imageSchema = new mongoose.Schema({
+    name: String,
+    data: Buffer,
+});
+
+const Image = mongoose.model('Image', imageSchema);
+
+const multer = require('multer');
+
+const storage = multer.diskStorage({
+    destination: (req, file, cb) => {
+        cb(null, 'api/images/blogImages');
+    },
+    filename: (req, file, cb) => {
+        cb(null, file.originalname);
+    },
+});
+
+const upload = multer({ storage });
+
+app.post('/api/upload', upload.single('file'), async (req, res) => {
+    // req.file contains the uploaded file
+    const image = new Image({
+        name: req.file.originalname,
+        data: req.file.buffer,
+    });
+    await image.save();
+
+    res.send('File uploaded successfully');
+});
+// ----------------------------------------------------------------
+
+
 app.use(express.json())
 app.use(express.urlencoded({extended: false}))
 
 app.use('/api/users', require('./routes/userRoutes'))
 app.use('/api/userDetails', require('./routes/userDetailRoutes'))
-// app.use('/api/blogs', require('./routes/blogRoutes'))
+app.use('/api/blogs', require('./routes/blogRoutes'))
 app.use('/api/goals', require('./routes/goalRoutes'))
 
 // Serve Frontend
