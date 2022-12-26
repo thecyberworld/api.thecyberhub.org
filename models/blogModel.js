@@ -19,6 +19,9 @@ const blogSchema = mongoose.Schema(
             type: String,
             required: [true, 'Please add a text field'],
         },
+        coverImage:{
+            type: String,
+        },
         tags: {
             type: [String],
             required: false,

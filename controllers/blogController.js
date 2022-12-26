@@ -34,6 +34,7 @@ const setBlog = asyncHandler(async (req, res) => {
     const blog = await Blog.create({
         title: req.body.title,
         content: req.body.content,
+        coverImage: req.body.coverImage,
         tags: req.body.tags,
         user: req.user._id,
         username: req.user.username
