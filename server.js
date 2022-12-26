@@ -13,7 +13,13 @@ connectDB()
 const app = express()
 
 // app.use(cors({ origin: '*' }));
-app.use(cors({origin: 'http://localhost:3000/'})); // Allow only localhost:3000 as an origin
+
+// Allow requests from multiple origins
+const allowedOrigins = [
+    'https://thecyberhub.org',
+    'http://localhost:3000',
+];
+app.use(cors({ origin: allowedOrigins }));
 
 app.use("/images/blogImages", express.static(path.join(__dirname, "/images/blogImages")));
 
