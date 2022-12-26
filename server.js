@@ -17,6 +17,7 @@ const app = express()
 // Allow requests from multiple origins
 const allowedOrigins = [
     'https://thecyberhub.org',
+    'https://beta.thecyberhub.org',
     'http://localhost:3000',
 ];
 app.use(cors({ origin: allowedOrigins }));
