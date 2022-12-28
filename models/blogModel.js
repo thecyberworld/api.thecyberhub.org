@@ -35,9 +35,38 @@ const blogSchema = mongoose.Schema(
         shares: {
             type: Number,
         },
-        comments: {
-            type: [Object],
-        },
+        comments: [
+            {
+                user: {
+                    type: mongoose.Schema.Types.ObjectId,
+                    ref: 'User'
+                },
+                username: {
+                    type: String,
+                },
+                comment: {
+                    type: String,
+                },
+                replies: [
+                    {
+                        user: {
+                            type: mongoose.Schema.Types.ObjectId,
+                            ref: 'User'
+                        },
+                        username: {
+                            type: String,
+                        },
+                        reply: {
+                            type: String,
+                        },
+                    }, {
+                        timestamps: true,
+                    }
+                ]
+            }, {
+                timestamps: true,
+            }
+        ]
     }, {
         timestamps: true,
     }

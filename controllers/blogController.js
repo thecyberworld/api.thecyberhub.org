@@ -104,48 +104,53 @@ const deleteBlog = asyncHandler(async (req, res) => {
 // @route   POST /api/v1/blogs/:id/comments
 // @access  Private
 const addComment = asyncHandler(async (req, res) => {
-    // Check for user
-    if (!req.user) {
-        return res.status(401).json({
-            success: false,
-            error: 'You must be logged in to add a comment'
-        });
-    }
-
-    // Retrieve the blog
+    // Find the blog that the comment is being added to
     const blog = await Blog.findById(req.params.id);
+
+    // Check if the blog exists
     if (!blog) {
         return res.status(404).json({
             success: false,
-            error: 'Blog not found'
+            message: 'Blog not found'
         });
     }
 
-    // Create the comment in the Comment table
-    const comment = await Comment.create({
-        blogId: blog._id,
+    // Create the comment
+    const comment = {
         user: req.user._id,
         username: req.user.username,
         comment: req.body.comment
-    });
+    };
 
     // Add the comment to the blog's comments array
-    blog.comments.push(comment.toObject());
+    blog.comments.push(comment);
     await blog.save();
 
     res.status(201).json({
         success: true,
         data: comment
     });
-
 });
 
 // @desc    Add a reply to a comment in a blog
 // @route   POST /api/v1/blogs/:id/comments/:commentId/reply
 // @access  Private
 const addReply = asyncHandler(async (req, res) => {
+    // Find the blog that the comment belongs to
+    const blog = await Blog.findById(req.params.id);
+
+    // Check if the blog exists
+    if (!blog) {
+        return res.status(404).json({
+            success: false,
+            message: 'Blog not found'
+        });
+    }
+
     // Find the comment that the reply is being added to
-    const comment = await Comment.findById(req.params.commentId);
+    const comment = blog.comments.find(
+        comment => comment._id.toString() === req.params.commentId
+    );
 
     // Check if the comment exists
     if (!comment) {
@@ -157,8 +162,6 @@ const addReply = asyncHandler(async (req, res) => {
 
     // Create the reply
     const reply = {
-        blogId: req.params.id,
-        commentId: req.params.commentId,
         user: req.user._id,
         username: req.user.username,
         reply: req.body.reply
@@ -166,7 +169,7 @@ const addReply = asyncHandler(async (req, res) => {
 
     // Add the reply to the comment's replies array
     comment.replies.push(reply);
-    await comment.save();
+    await blog.save();
 
     res.status(201).json({
         success: true,
