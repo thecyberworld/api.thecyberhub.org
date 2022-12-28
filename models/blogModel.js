@@ -19,16 +19,28 @@ const blogSchema = mongoose.Schema(
             type: String,
             required: [true, 'Please add a text field'],
         },
-        coverImage:{
+        coverImage: {
             type: String,
         },
         tags: {
             type: [String],
-            required: false,
+            required: [true, 'Please add a tags'],
+        },
+        views: {
+            type: Number,
+        },
+        likes: {
+            type: Number,
+        },
+        shares: {
+            type: Number,
+        },
+        comments: {
+            type: [Object],
         },
     }, {
         timestamps: true,
     }
-)
+);
 
 module.exports = mongoose.model('Blog', blogSchema);
