@@ -47,6 +47,10 @@ const blogSchema = mongoose.Schema(
                 comment: {
                     type: String,
                 },
+                createdAt: {
+                    type: Date,
+                    default: Date.now,
+                },
                 replies: [
                     {
                         user: {
@@ -59,12 +63,12 @@ const blogSchema = mongoose.Schema(
                         reply: {
                             type: String,
                         },
-                    }, {
-                        timestamps: true,
+                        createdAt: {
+                            type: Date,
+                            default: Date.now,
+                        },
                     }
                 ]
-            }, {
-                timestamps: true,
             }
         ]
     }, {
