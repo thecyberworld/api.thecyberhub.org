@@ -119,7 +119,8 @@ const addComment = asyncHandler(async (req, res) => {
     const comment = {
         user: req.user._id,
         username: req.user.username,
-        comment: req.body.comment
+        comment: req.body.comment,
+        createdAt: new Date(Date.now()).toISOString(),
     };
 
     // Add the comment to the blog's comments array
@@ -164,7 +165,8 @@ const addReply = asyncHandler(async (req, res) => {
     const reply = {
         user: req.user._id,
         username: req.user.username,
-        reply: req.body.reply
+        reply: req.body.reply,
+        createdAt: new Date(Date.now()).toISOString(),
     };
 
     // Add the reply to the comment's replies array
