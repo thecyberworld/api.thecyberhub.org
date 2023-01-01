@@ -7,7 +7,6 @@ const path = require('path')
 const port = process.env.PORT || 5000
 const cors = require('cors');
 
-
 connectDB()
 
 const app = express()
@@ -22,7 +21,8 @@ const allowedOrigins = [
 ];
 app.use(cors({ origin: allowedOrigins }));
 
-app.use("/images/blogImages", express.static(path.join(__dirname, "/images/blogImages")));
+
+app.use("/images", express.static(path.join(__dirname, "/images")));
 
 const mongoose = require('mongoose');
 
@@ -37,7 +37,7 @@ const multer = require('multer');
 
 const storage = multer.diskStorage({
     destination: (req, file, cb) => {
-        cb(null, 'api/images/blogImages');
+        cb(null, 'api/images');
     },
     filename: (req, file, cb) => {
         cb(null, file.originalname);

@@ -36,7 +36,7 @@ const registerUser = asyncHandler(async (req, res) => {
         username,
         email,
         password: hashedPassword,
-        picture: "https://user-images.githubusercontent.com/44284877/208585563-75b6ef57-3bae-43b9-a93e-024bad29a267.png",
+        picture,
         userType: "user",
     })
 
@@ -152,7 +152,7 @@ const updateUser = asyncHandler(async (req, res) => {
             name: updatedUser.name,
             username: updatedUser.username,
             email: updatedUser.email,
-            picture: updatedUser.picture,
+            // picture: updatedUser.picture,
             token: generateToken(updatedUser._id),
         });
     } else {
